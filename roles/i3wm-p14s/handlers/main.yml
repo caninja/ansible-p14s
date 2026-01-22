@@ -1,0 +1,10 @@
+---
+- name: restart tlp
+  systemd:
+    name: tlp
+    state: restarted
+
+- name: restart journald
+  systemd:
+    name: systemd-journald
+    state: restarted

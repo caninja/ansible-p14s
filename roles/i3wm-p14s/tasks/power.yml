@@ -1,0 +1,72 @@
+---
+# I choose TLP for this laptop
+- name: Disable and mask power-profiles-daemon
+  systemd:
+    name: power-profiles-daemon
+    state: stopped
+    enabled: no
+    masked: yes
+  when: power_tlp
+  tags: [power, tlp]
+
+- name: Install TLP packages
+  community.general.pacman:
+    name:
+      - tlp
+      - tlp-rdw
+    state: present
+  when: power_tlp
+  tags: [power, tlp]
+
+- name: Ensure TLP config directory exists
+  file:
+    path: /etc/tlp.d
+    state: directory
+    mode: '0755'
+  when: power_tlp
+  tags: [power, tlp]
+
+# https://wiki.archlinux.org/title/Lenovo_ThinkPad_P14s_(AMD)_Gen_6
+# https://gist.github.com/kikislater/4de3d79b0459681933ba630e29bcb0e0
+# !!! Claude has been chewing these templates.
+- name: Deploy TLP performance profile
+  template:
+    src: tlp-performance.conf.j2
+    dest: /etc/tlp.d/10-performance.conf
+    mode: '0644'
+  when: power_tlp
+  tags: [power, tlp]
+
+- name: Deploy TLP balanced profile
+  template:
+    src: tlp-balanced.conf.j2
+    dest: /etc/tlp.d/20-balanced.conf
+    mode: '0644'
+  when: power_tlp
+  tags: [power, tlp]
+
+- name: Deploy TLP battery profile
+  template:
+    src: tlp-battery.conf.j2
+    dest: /etc/tlp.d/30-battery.conf
+    mode: '0644'
+  when: power_tlp
+  tags: [power, tlp]
+
+- name: Set performance as default profile
+  file:
+    src: /etc/tlp.d/10-performance.conf
+    dest: /etc/tlp.d/50-current.conf
+    state: link
+  when: power_tlp
+  notify: restart tlp
+  tags: [power, tlp]
+# And then we script some shuffling of files to add to i3blocks.
+
+- name: Enable and start TLP service
+  systemd:
+    name: tlp
+    enabled: yes
+    state: started
+  when: power_tlp
+  tags: [power, tlp]

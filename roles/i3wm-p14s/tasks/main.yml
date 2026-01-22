@@ -1,0 +1,42 @@
+---
+- name: Configure system
+  ansible.builtin.include_tasks: system.yml
+  tags: [system]
+
+- name: User
+  ansible.builtin.include_tasks: user.yml
+  tags: [user]
+
+- name: Full system upgrade
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+  tags: [system, upgrade]
+
+- name: Pacman packages
+  ansible.builtin.include_tasks: packages.yml
+  tags: [pkg, pacman]
+
+- name: Aur packages
+  ansible.builtin.include_tasks: yay-packages.yml
+  tags: [yay, aur]
+
+- name: Services
+  ansible.builtin.include_tasks: services.yml
+  tags: [services]
+
+- name: TLP
+  ansible.builtin.include_tasks: power.yml
+  tags: [power, tlp]
+
+- name: Rofi
+  ansible.builtin.include_tasks: rofi.yml
+  tags: [rofi, config]
+
+- name: Themes
+  ansible.builtin.include_tasks: themes.yml
+  tags: [themes, config]
+
+- name: Dotfiles
+  ansible.builtin.include_tasks: dotfiles.yml
+  tags: [dotfiles, config]

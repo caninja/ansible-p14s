@@ -1,0 +1,97 @@
+---
+- name: Set timezone
+  timezone:
+    name: "{{ system_timezone }}"
+  tags: [system, timezone]
+
+- name: Enable parallel downloads in pacman
+  lineinfile:
+    path: /etc/pacman.conf
+    regexp: '^#?ParallelDownloads'
+    line: 'ParallelDownloads = 15'
+    state: present
+  tags: [system, pacman]
+
+- name: Enable Color output in pacman
+  lineinfile:
+    path: /etc/pacman.conf
+    regexp: '^#?Color'
+    line: 'Color'
+    insertafter: '^\[options\]'
+    state: present
+  tags: [system, pacman]
+
+- name: Enable VerbosePkgLists in pacman
+  lineinfile:
+    path: /etc/pacman.conf
+    regexp: '^#?VerbosePkgLists'
+    line: 'VerbosePkgLists'
+    insertafter: '^Color'
+    state: present
+  tags: [system, pacman]
+
+- name: Enable ILoveCandy in pacman
+  lineinfile:
+    path: /etc/pacman.conf
+    regexp: '^#?ILoveCandy'
+    line: 'ILoveCandy'
+    insertafter: '^VerbosePkgLists'
+    state: present
+  tags: [system, pacman]
+
+- name: Optimize makepkg MAKEFLAGS for parallel compilation
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: '^#?MAKEFLAGS='
+    line: 'MAKEFLAGS="-j$(nproc)"'
+    state: present
+  tags: [system, makepkg]
+
+- name: Set makepkg BUILDDIR to tmpfs for faster builds
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: '^#?BUILDDIR='
+    line: 'BUILDDIR=/tmp/makepkg'
+    state: present
+  tags: [system, makepkg]
+
+- name: Optimize zstd compression for multi-threaded operation
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: '^#?COMPRESSZST='
+    line: 'COMPRESSZST=(zstd -c -T0 --ultra -20 -)'
+    state: present
+  tags: [system, makepkg]
+
+- name: Remove broken multi-line CFLAGS entries
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: '^\s+(-Wp,-D_FORTIFY_SOURCE=3|-fstack-clash-protection|-fno-omit-frame-pointer)'
+    state: absent
+  tags: [system, makepkg]
+
+- name: Optimize CFLAGS for native CPU architecture
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: '^CFLAGS='
+    line: 'CFLAGS="-march=native -O2 -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=3 -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"'
+    state: present
+  tags: [system, makepkg]
+
+- name: Optimize CXXFLAGS for native CPU architecture
+  lineinfile:
+    path: /etc/makepkg.conf
+    regexp: '^CXXFLAGS='
+    line: 'CXXFLAGS="$CFLAGS -Wp,-D_GLIBCXX_ASSERTIONS"'
+    state: present
+  tags: [system, makepkg]
+
+- name: Configure systemd journal limits
+  ansible.builtin.template:
+    src: journald.conf.j2
+    dest: /etc/systemd/journald.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart journald
+  tags: [system, journald]

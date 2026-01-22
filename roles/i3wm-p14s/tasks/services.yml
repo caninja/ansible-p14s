@@ -1,0 +1,41 @@
+---
+# Using shell commands instead of systemd module due to D-Bus session issues with Ansible or something..
+
+- name: Get current user info
+  set_fact:
+    runtime_user: "{{ ansible_user_id }}"
+
+- name: Enable lingering for user (allows user services without active session)
+  command: loginctl enable-linger {{ runtime_user }}
+  become: yes
+  changed_when: false
+  ignore_errors: yes
+
+- name: Get current user UID
+  command: id -u
+  register: user_uid
+  changed_when: false
+
+# note: May need some attention post install
+- name: Enable espanso user service
+  shell: |
+    export XDG_RUNTIME_DIR=/run/user/{{ user_uid.stdout }}
+    systemctl --user enable espanso 2>&1 || true
+  become: no
+  changed_when: false
+
+# note: May need some attention post install
+- name: Start espanso user service
+  shell: |
+    export XDG_RUNTIME_DIR=/run/user/{{ user_uid.stdout }}
+    systemctl --user start espanso 2>&1 || true
+  become: no
+  changed_when: false
+
+- name: Enable and start syncthing system service for user
+  ansible.builtin.systemd:
+    name: syncthing@{{ runtime_user }}
+    enabled: yes
+    state: started
+  become: yes
+# 8384

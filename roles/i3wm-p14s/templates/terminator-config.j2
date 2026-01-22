@@ -1,0 +1,50 @@
+[global_config]
+  geometry_hinting = True
+  tab_position = bottom
+  ask_before_closing = never
+[keybindings]
+  next_tab = <Shift>Right
+  prev_tab = <Shift>Left
+[profiles]
+  [[default]]
+    geometry = 800x600+100+100
+    cursor_shape = ibeam
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_infinite = True
+    title_transmit_bg_color = "#a51d2d"
+  [[Stor]]
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_infinite = True
+    geometry = 800x1000
+  [[Store]]
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+  [[Stor]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 777:403
+      maximised = False
+      fullscreen = False
+      size = 1002, 632
+      title = skrapterminal
+      last_active_term = 4068fb27-c52c-4968-a28c-4d6751f8767e
+      last_active_window = True
+      geometry = 800x900
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = Stor
+      uuid = 4068fb27-c52c-4968-a28c-4d6751f8767e
+[plugins]

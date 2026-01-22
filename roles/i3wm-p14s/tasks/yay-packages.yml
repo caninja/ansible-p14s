@@ -1,0 +1,50 @@
+---
+# Running the yay.sh as user, other methods are less fun!
+- name: Ensure .config/yay directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/yay"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0755'
+  when: yay
+  tags: [yay, aur]
+
+- name: Configure YAY
+  copy:
+    dest: "/home/{{ user_name }}/.config/yay/config.json"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0644'
+    content: |
+      {
+        "maxconcurrentdownloads": 5,
+        "batchinstall": true,
+        "cleanAfter": true,
+        "removemake": "yes",
+        "combinedupgrade": true,
+        "sudoloop": true
+      }
+  when: yay
+  tags: [yay, aur]
+
+- name: Check if yay.sh exists
+  stat:
+    path: "{{ playbook_dir }}/yay.sh"
+  register: yay_script
+  when: yay
+  tags: [yay, aur]
+
+- name: Make yay.sh executable
+  file:
+    path: "{{ playbook_dir }}/yay.sh"
+    mode: '0755'
+  when: yay and yay_script.stat.exists
+  tags: [yay, aur]
+
+- name: Run yay.sh as user
+  shell: "{{ playbook_dir }}/yay.sh"
+  become: true
+  become_user: "{{ user_name }}"
+  when: yay and yay_script.stat.exists
+  tags: [yay, aur]

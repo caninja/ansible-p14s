@@ -1,0 +1,15 @@
+---
+user_name: f
+user_shell: '/usr/bin/zsh'
+user_groups:
+  - 'wheel'
+
+system_timezone: 'Europe/Oslo'
+
+cli_apps: true
+network_apps: true
+tool_apps: true
+font_packages: true
+game_packages: true
+power_tlp: true
+yay: false

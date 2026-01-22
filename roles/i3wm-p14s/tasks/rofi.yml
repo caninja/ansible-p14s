@@ -1,0 +1,39 @@
+---
+# This was broken from other donor ansible-repo and need som adjustments, check out that repo below for install.
+
+- name: Check if rofi config already exists
+  stat:
+    path: "/home/{{ user_name }}/.config/rofi/config.rasi"
+  tags: [rofi, config]
+
+- name: Clone rofi themes repository
+  git:
+    repo: 'https://github.com/adi1090x/rofi.git'
+    dest: '/tmp/rofi-themes'
+    depth: 1
+    update: yes
+    force: yes
+  become: false
+  tags: [rofi, config]
+
+- name: Backup existing rofi config if it exists
+  command: "mv /home/{{ user_name }}/.config/rofi /home/{{ user_name }}/.config/rofi.backup.$(date +%Y%m%d_%H%M%S)"
+  become: true
+  become_user: "{{ user_name }}"
+  ignore_errors: yes
+  tags: [rofi, config]
+
+- name: Run rofi setup script
+  shell: |
+    cd /tmp/rofi-themes
+    yes | ./setup.sh
+  become: true
+  become_user: "{{ user_name }}"
+  tags: [rofi, config]
+
+- name: Clean up temporary rofi repository
+  file:
+    path: '/tmp/rofi-themes'
+    state: absent
+  become: false
+  tags: [rofi, config]

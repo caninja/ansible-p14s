@@ -1,0 +1,120 @@
+---
+# Note: Personal dotfiles are managed separately via repos and syncthing
+# Note: This is just some bootstrap
+
+- name: Ensure flameshot screenshots directory exists
+  file:
+    path: "/home/{{ user_name }}/Bilder/Screenshots"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, flameshot]
+
+- name: Ensure flameshot config directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/flameshot"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, flameshot]
+
+- name: Configure flameshot
+  template:
+    src: flameshot.ini.j2
+    dest: "/home/{{ user_name }}/.config/flameshot/flameshot.ini"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, flameshot]
+
+- name: Ensure ranger config directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/ranger"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, ranger]
+
+- name: Configure ranger image preview
+  template:
+    src: ranger-rc.conf.j2
+    dest: "/home/{{ user_name }}/.config/ranger/rc.conf"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, ranger]
+
+- name: Ensure terminator config directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/terminator"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, terminator]
+
+- name: Configure terminator
+  template:
+    src: terminator-config.j2
+    dest: "/home/{{ user_name }}/.config/terminator/config"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, terminator]
+
+- name: Ensure picom config directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/picom"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, picom]
+
+- name: Configure picom minimally
+  template:
+    src: picom.conf.j2
+    dest: "/home/{{ user_name }}/.config/picom/picom.conf"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, picom]
+
+- name: Ensure discord config directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/discord"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, discord]
+
+- name: update-loop fix thing discord
+  template:
+    src: discord-settings.json.j2
+    dest: "/home/{{ user_name }}/.config/discord/settings.json"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, discord]
+
+- name: Ensure gpicview config directory exists
+  file:
+    path: "/home/{{ user_name }}/.config/gpicview"
+    state: directory
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, gpicview]
+
+- name: Configure gpicview
+  template:
+    src: gpicview.conf.j2
+    dest: "/home/{{ user_name }}/.config/gpicview/gpicview.conf"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  tags: [dotfiles, config, gpicview]

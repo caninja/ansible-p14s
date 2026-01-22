@@ -1,0 +1,62 @@
+---
+## LLAMA
+- name: Ensure QMMP skins directory exists
+  ansible.builtin.file:
+    path: "/home/{{ user_name }}/.config/qmmp/skins"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0755'
+
+- name: Download Winamp classic skin for QMMP
+  ansible.builtin.get_url:
+    url: 'https://qmmp.ylsoftware.com/files/skins/winamp-skins/winamp_classic.wsz'
+    dest: "/home/{{ user_name }}/.config/qmmp/skins/winamp.wsz"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0644'
+
+- name: Ensure QMMP config directory exists
+  ansible.builtin.file:
+    path: "/home/{{ user_name }}/.config/qmmp"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0755'
+
+- name: Configure QMMP to use Winamp classic skin
+  ansible.builtin.lineinfile:
+    path: "/home/{{ user_name }}/.config/qmmp/qmmp.conf"
+    regexp: '^skin_path='
+    line: 'skin_path=/home/f/.config/qmmp/skins/winamp.wsz'
+    insertafter: '^\[Skinned\]'
+    create: yes
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0644'
+
+- name: Ensure icons directory exists
+  ansible.builtin.file:
+    path: "/home/{{ user_name }}/.icons"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0755'
+
+- name: Clone icon theme
+  ansible.builtin.git:
+    repo: 'git@github.com:B00merang-Artwork/Windows-8.git'
+    dest: "/home/{{ user_name }}/.icons/Windows-8"
+    accept_hostkey: yes
+  become: yes
+  become_user: "{{ user_name }}"
+
+- name: Clone icon theme
+  ansible.builtin.git:
+    repo: 'git@github.com:B00merang-Artwork/Windows-10.git'
+    dest: "/home/{{ user_name }}/.icons/Windows-10"
+    accept_hostkey: yes
+  become: yes
+  become_user: "{{ user_name }}"
+
+# run nwg-look to set up icons, or ~/.config/gtk-*.0/settings.ini 

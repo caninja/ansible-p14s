@@ -1,0 +1,7 @@
+---
+- name: Configure i3
+  hosts: local
+  become: yes
+
+  roles:
+    - i3wm-p14s

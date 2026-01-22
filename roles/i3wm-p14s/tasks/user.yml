@@ -1,0 +1,20 @@
+---
+- name: User
+  user:
+    name: "{{ user_name }}"
+    shell: "{{ user_shell }}"
+    groups: "{{ user_groups }}"
+    append: yes
+    create_home: yes
+    state: present
+  tags: [user]
+
+- name: Configure passwordless sudo su for user, especially at the install phase, or not .. rm /etc/sudoers.d/f-su
+  copy:
+    dest: "/etc/sudoers.d/{{ user_name }}-su"
+    content: |
+      # Allow {{ user_name }} to run 'sudo su' without password
+      {{ user_name }} ALL=(root) NOPASSWD: /usr/bin/su
+    mode: '0440'
+    validate: 'visudo -cf %s'
+  tags: [user, sudo]

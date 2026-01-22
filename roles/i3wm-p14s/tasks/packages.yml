@@ -1,0 +1,251 @@
+---
+- name: Install preferred tools
+  community.general.pacman:
+    name:
+      - syncthing
+      - gparted
+      - qtpass
+      - arandr
+      - autorandr
+      - sqlitebrowser
+      - remmina
+      - zathura
+      - thunar
+      - solaar
+      - podman
+      - podman-compose
+      - qmmp
+      - obs-studio
+      - feh
+      - vlc
+      - gpicview
+      - gqrx
+      - signal-desktop
+      - discord
+      - nheko
+      - calibre
+      - mpv
+      # - krita
+      # - inkscape
+      - downgrade
+      - dconf-editor
+      # - gimp
+      - gucharmap
+      # - blender
+      # - dmenu
+      - dunst
+      - tlpui
+      - xclip
+      - urh
+      - lite-xl
+      - picom
+      - qbittorrent
+ #     - font-manager
+      # - rofi-dev
+      - flameshot
+      - galculator
+      - okteta
+      - dbeaver
+      - kleopatra
+      - audacity
+      - etherape
+      - ghex
+      - hexyl
+    state: latest
+  when: cli_apps
+  tags: [pkg, apps]
+
+- name: Install CLI tools
+  community.general.pacman:
+    name:
+      - neovim
+      - tmux
+      - ansible
+      - jq
+      - ranger
+      - surfraw
+      - htop
+      - fzf
+      - bat
+      - newsboat
+      - neomutt
+      - emacs
+      - ripgrep
+      - pdfgrep
+      - git
+      - zsh
+      - terraform
+      - aws-cli-v2
+      - exa
+      - pgcli
+      # - mycli
+      - hexedit
+      - id3v2 # Mp3
+      - atop
+      - wavemon
+      - visidata
+      - fx
+      - xsv
+      - ncdu
+      - gocryptfs
+      - bluetui
+      - fdupes
+      - serie
+      - nmap
+      - python-i3ipc
+      - nwg-look # lxappearance
+      - cmatrix
+      - screenfetch
+      - testdisk
+      - powertop
+      # - mysql-client # we are in the future now
+      - mariadb-clients
+      - cowsay
+      - tree
+      - mediainfo
+      - zoxide
+      - entr
+      - viu
+      - fd
+      - strace
+      - ltrace
+      - glow
+      - iotop
+      - figlet
+      - fortune-mod
+      - xxd
+      - exiv2
+      - qpdf
+      - ttyper
+    state: latest
+  when: cli_apps
+  tags: [pkg, cli]
+
+- name: Install network tools
+  community.general.pacman:
+    name:
+      - nmap
+      - wavemon
+      - rsync
+      - whois
+      - dhclient
+      - httpie
+#      - packetsender
+      - termshark
+      - bmon
+      - opensnitch
+      - sshpass
+      - filezilla
+#      - openssh-server
+      - w3m
+      - elinks
+      - nethogs
+      - nload
+      - s3cmd
+      - mtr
+      - traceroute
+      - ipcalc
+      - stunnel
+      - aircrack-ng
+      - dsniff
+      - bettercap
+      - darkstat
+#      - dnstop
+      - rtorrent
+      - torsocks
+      - termshark
+      - wireguard-tools
+      - rfkill
+      - lynx
+      - curl
+#      - speedometer
+      - arp-scan
+      - iperf3
+      - socat
+      - tcpdump
+      - wireshark-cli
+      - wireshark-qt
+      - netcat
+      - trippy # trip
+      - s-tui
+      - oha
+      - hping
+      - iptraf-ng
+      - masscan
+      - nikto
+    state: latest
+  when: network_apps
+  tags: [pkg, network]
+
+- name: Install libs and tools
+  community.general.pacman:
+    name:
+      - net-tools
+      - unzip
+      - unrar
+      - sox
+      - p7zip
+      - fwupd
+      - lsof
+      - rtl-sdr
+      - python-pipx
+      - sysdig
+      - gnuplot
+      - expect
+      - python-pyasn
+      - sqlite
+      - ffmpeg
+      - imagemagick
+#      - exfat
+      - xorg-xset
+      - fdupes
+      - beep
+      - strace
+      - bc
+#      - libfyba0
+      - borgmatic
+      - libsixel
+      - s3fs
+      - binwalk
+#      - scalpel
+      - geoip-database
+#      - geoip-bin
+#      - exif
+      - exiftool
+      - espeak-ng
+      - motion
+      - python-pdftotext
+    state: latest
+  when: tool_apps
+  tags: [pkg, tools]
+
+- name: Install fonts, icons etc
+  community.general.pacman:
+    name:
+      - ttf-bitstream-vera
+      - powerline-fonts
+      - ttf-font-awesome
+      - noto-fonts-emoji
+      - ttf-nerd-fonts-symbols-mono
+      - ttf-nerd-fonts-symbols
+      - ttf-hack-nerd
+      - papirus-icon-theme
+    state: latest
+  when: font_packages
+  tags: [pkg, fonts]
+# see https://github.com/ryanoasis/nerd-fonts
+
+
+- name: Install games and emulators
+  community.general.pacman:
+    name:
+      - snes9x-gtk
+      - mgba-qt
+      - prismlauncher
+      - doomretro
+#      - chocolate-doom
+#      - gzdoom
+    state: latest
+  when: game_packages
+  tags: [pkg, games]
+# doomretro -iwad DOOM2.WAD
