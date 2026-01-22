@@ -117,6 +117,7 @@
       - exiv2
       - qpdf
       - ttyper
+      - ollama
     state: latest
   when: cli_apps
   tags: [pkg, cli]
