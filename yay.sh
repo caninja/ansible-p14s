@@ -25,6 +25,8 @@ AUR_PACKAGES=(
     rtl_433-git
     mcrcon
     sublime-text-4
+    i3-resurrect-git
+    tuxpaint
 )
 # pandoc-bin = million less haskell
 
@@ -56,3 +58,12 @@ echo "Done!"
 # netdiscover
 # pkhex-bin
 # rtl8192su-dkms
+
+
+#### Set up llm cli
+#```sh
+#pipx install llm
+#llm install llm-deepseek
+#llm keys set deepseek
+#cat some.log | llm -m deepseek-chat 'tldr this'
+#```
