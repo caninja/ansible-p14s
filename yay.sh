@@ -27,6 +27,7 @@ AUR_PACKAGES=(
     sublime-text-4
     i3-resurrect-git
     tuxpaint
+    mssql-tools
 )
 # pandoc-bin = million less haskell
 

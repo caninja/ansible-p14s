@@ -31,7 +31,7 @@
       - dconf-editor
       # - gimp
       - gucharmap
-      # - blender
+      - blender
       # - dmenu
       - dunst
       - tlpui
@@ -40,7 +40,7 @@
       - lite-xl
       - picom
       - qbittorrent
- #     - font-manager
+      #     - font-manager
       # - rofi-dev
       - flameshot
       - galculator
@@ -59,6 +59,14 @@
       - wezterm
       - rbw
       - rofi-rbw
+      - rofi-emoji # rofi -modi emoji -show emoji -kb-secondary-copy "" -kb-custom-1 Ctrl+c
+      - rofi-calc # rofi -show calc -modi calc -no-show-match -no-sort
+      - libreoffice-fresh
+      - freecad
+      - openscad
+      - zed
+      - mission-center
+      - prusa-slicer
     state: latest
   when: cli_apps
   tags: [pkg, apps]
@@ -76,6 +84,8 @@
       - fzf
       - bat
       - newsboat
+      - lnav
+      - xan # csv view
       - neomutt
       - emacs
       - ripgrep
@@ -141,13 +151,13 @@
       - whois
       - dhclient
       - httpie
-#      - packetsender
+      #      - packetsender
       - termshark
       - bmon
       - opensnitch
       - sshpass
       - filezilla
-#      - openssh-server
+      #      - openssh-server
       - w3m
       - elinks
       - nethogs
@@ -161,7 +171,7 @@
       - dsniff
       - bettercap
       - darkstat
-#      - dnstop
+      #      - dnstop
       - rtorrent
       - torsocks
       - termshark
@@ -169,7 +179,7 @@
       - rfkill
       - lynx
       - curl
-#      - speedometer
+      #      - speedometer
       - arp-scan
       - iperf3
       - socat
@@ -210,21 +220,21 @@
       - sqlite
       - ffmpeg
       - imagemagick
-#      - exfat
+      #      - exfat
       - xorg-xset
       - fdupes
       - beep
       - strace
       - bc
-#      - libfyba0
+      #      - libfyba0
       - borgmatic
       - libsixel
       - s3fs
       - binwalk
-#      - scalpel
+      #      - scalpel
       - geoip-database
-#      - geoip-bin
-#      - exif
+      #      - geoip-bin
+      #      - exif
       - exiftool
       - espeak-ng
       - motion
@@ -242,6 +252,8 @@
       - soapysdr
       - soapyrtlsdr
       - multimon-ng
+      - python-passlib
+      - xorg-xwininfo
     state: latest
   when: tool_apps
   tags: [pkg, tools]
@@ -262,7 +274,6 @@
   tags: [pkg, fonts]
 # see https://github.com/ryanoasis/nerd-fonts
 
-
 - name: Install games and emulators
   community.general.pacman:
     name:
@@ -270,8 +281,8 @@
       - mgba-qt
       - prismlauncher
       - doomretro
-#      - chocolate-doom
-#      - gzdoom
+    #      - chocolate-doom
+    #      - gzdoom
     state: latest
   when: game_packages
   tags: [pkg, games]
