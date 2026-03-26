@@ -138,6 +138,8 @@
       - ollama
       - screen # serial tty
       - catimg
+      - mpg123
+      - cmus
     state: latest
   when: cli_apps
   tags: [pkg, cli]
@@ -197,6 +199,7 @@
       - sshfs
       - iftop
       - btop
+      - p0f
     state: latest
   when: network_apps
   tags: [pkg, network]
@@ -254,6 +257,7 @@
       - multimon-ng
       - python-passlib
       - xorg-xwininfo
+      - volatility3
     state: latest
   when: tool_apps
   tags: [pkg, tools]
