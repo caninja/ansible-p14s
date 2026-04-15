@@ -67,6 +67,7 @@
       - zed
       - mission-center
       - prusa-slicer
+      - thunderbird
     state: latest
   when: cli_apps
   tags: [pkg, apps]
@@ -100,7 +101,6 @@
       - hexedit
       - id3v2 # Mp3
       - atop
-      - wavemon
       - visidata
       - fx
       - xsv
@@ -140,6 +140,7 @@
       - catimg
       - mpg123
       - cmus
+      - adb
     state: latest
   when: cli_apps
   tags: [pkg, cli]
@@ -243,6 +244,7 @@
       - motion
       - python-pdftotext
       - php
+      - php-sqlite
       - python-pyserial
       - uv
       - yq
