@@ -59,6 +59,7 @@ echo "Done!"
 # netdiscover
 # pkhex-bin
 # rtl8192su-dkms
+# diskonaut
 
 
 #### Set up llm cli

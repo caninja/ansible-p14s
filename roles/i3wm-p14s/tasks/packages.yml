@@ -141,6 +141,7 @@
       - mpg123
       - cmus
       - adb
+      - pv
     state: latest
   when: cli_apps
   tags: [pkg, cli]
