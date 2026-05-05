@@ -60,6 +60,7 @@ echo "Done!"
 # pkhex-bin
 # rtl8192su-dkms
 # diskonaut
+# woeusb-ng
 
 
 #### Set up llm cli
