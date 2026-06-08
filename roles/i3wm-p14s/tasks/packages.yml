@@ -104,6 +104,7 @@
       - visidata
       - fx
       - xsv
+      - csvkit
       - ncdu
       - gocryptfs
       - bluetui
@@ -142,6 +143,7 @@
       - cmus
       - adb
       - pv
+      - archiso
     state: latest
   when: cli_apps
   tags: [pkg, cli]
