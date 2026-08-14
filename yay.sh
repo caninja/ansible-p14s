@@ -28,6 +28,8 @@ AUR_PACKAGES=(
     i3-resurrect-git
     tuxpaint
     mssql-tools
+    rdrview
+    wkgtk-html2pdf
 )
 # pandoc-bin = million less haskell
 
@@ -61,6 +63,11 @@ echo "Done!"
 # rtl8192su-dkms
 # diskonaut
 # woeusb-ng
+# ventoy
+# jellyfin2samsung-bin
+# xiaomitool-v2
+
+
 
 
 #### Set up llm cli

@@ -144,6 +144,8 @@
       - adb
       - pv
       - archiso
+      - xorg-xev
+      - evtest
     state: latest
   when: cli_apps
   tags: [pkg, cli]
